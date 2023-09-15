@@ -40,7 +40,7 @@
       }
     });
 
-    resultsContainer.innerHTML = `You got ${numCorrect} correct answers out of ${myQuestions.length} questions`;
+    resultsContainer.innerHTML = `Você acertou ${numCorrect} respostas de ${myQuestions.length} perguntas`;
   }
 
   function showSlide(n) {
@@ -78,7 +78,7 @@
   const submitButton = document.getElementById('submit');
   const myQuestions = [
     {
-      question: "Who invented JavaScript?",
+      question: "Quem inventou o JavaScript?",
       answers: {
         a: "Douglas Crockford",
         b: "Sheryl Sandberg",
@@ -87,7 +87,7 @@
       correctAnswer: "c"
     },
     {
-      question: "Which one of these is a JavaScript package manager?",
+      question: "Qual destes é um gerenciador de pacotes JavaScript?",
       answers: {
         a: "Node.js",
         b: "TypeScript",
@@ -96,7 +96,7 @@
       correctAnswer: "c"
     },
     {
-      question: "Which tool can you use to ensure code quality?",
+      question: "Qual ferramenta você pode usar para garantir a qualidade do código?",
       answers: {
         a: "Angular",
         b: "jQuery",
@@ -106,25 +106,25 @@
       correctAnswer: "d"
     },
     {
-      question: "How do you write 'Hello World' in an alert box?",
+      question: "Como você escreve 'Olá Mundo' em uma caixa de alerta?",
       answers: {
-        a: "msgBox('Hello World');",
-        b: "alertBox('Hello World');",
-        c: "msg('Hello World');",
-        d: "alert('Hello World');"
+        a: "msgBox('Olá Mundo');",
+        b: "alertBox('Olá Mundo');",
+        c: "msg('Olá Mundo');",
+        d: "alert('Olá Mundo');"
       },
       correctAnswer: "d"
     }
   ];
 
   buildQuiz();
-  // Pagination
+  // Paginação
   const previousButton = document.getElementById("previous");
   const nextButton = document.getElementById("next");
   const slides = document.querySelectorAll(".slide");
   let currentSlide = 0;
 
-  // Show the first slide
+  // Mostrar o primeiro slide
   showSlide(currentSlide);
 
   submitButton.addEventListener('click', showResults);
@@ -134,4 +134,4 @@
 
 function refreshPage() {
   window.location.reload();
-} 
+}
