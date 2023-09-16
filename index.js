@@ -23,25 +23,54 @@
     );
     quizContainer.innerHTML = output.join('');
   }
+  const wrongAnswers = [];
 
   function showResults() {
     const answerContainers = quizContainer.querySelectorAll('.answers');
     let numCorrect = 0;
+    wrongAnswers.length = 0; // Limpa a lista de perguntas erradas
+  
     myQuestions.forEach((currentQuestion, questionNumber) => {
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
       if (userAnswer === currentQuestion.correctAnswer) {
         numCorrect++;
-        answerContainers[questionNumber].style.color = 'green';
+        answerContainers[questionNumber].style.color = 'green'; // Resposta correta em verde
       }
       else {
-        answerContainers[questionNumber].style.color = 'red';
+        answerContainers[questionNumber].style.color = 'red'; // Resposta errada em vermelho
+        wrongAnswers.push({
+          question: currentQuestion.question,
+          correctAnswer: currentQuestion.correctAnswer,
+          userAnswer: userAnswer,
+          answers: currentQuestion.answers
+        });
       }
     });
-
-    resultsContainer.innerHTML = `Você acertou ${numCorrect} respostas de ${myQuestions.length} perguntas`;
+  
+    // Exibe a lista de perguntas respondidas erroneamente com todas as opções de resposta
+    if (wrongAnswers.length > 0) {
+      resultsContainer.innerHTML = `<h2> Você acertou ${numCorrect} respostas de ${myQuestions.length} perguntas.<h2> <h3>Perguntas respondidas erroneamente:</h3> `;
+      wrongAnswers.forEach((wrongAnswer, index) => {
+        resultsContainer.innerHTML += `<p style="font-weight: 500">${index + 1}. ${wrongAnswer.question}</p>`;
+        for (const letter in wrongAnswer.answers) {
+          const answerText = wrongAnswer.answers[letter];
+          if (letter === wrongAnswer.correctAnswer) {
+            resultsContainer.innerHTML += `<p style="color: green;">${letter} : ${answerText} (Correta)</p>`;
+          } else if (letter === wrongAnswer.userAnswer) {
+            resultsContainer.innerHTML += `<p style="color: red;">${letter} : ${answerText} (Sua Resposta)</p>`;
+          } else {
+            resultsContainer.innerHTML += `<p>${letter} : ${answerText}</p>`;
+          }
+        }
+      });
+    } else {
+      resultsContainer.innerHTML = `Você acertou todas as ${myQuestions.length} perguntas!`;
+    }
   }
+  
+  
 
   function showSlide(n) {
     slides[currentSlide].classList.remove('active-slide');
